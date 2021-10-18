@@ -8,11 +8,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ItemCreateRequestDto {
 
-    private String title;
-    private String category;
-    private int defaultprice;
-    private int detailprice;
-    private String sumImgUrl;
-    private String detailImgUrl;
+    private final String title;
+    private final String category;
+    private final int defaultprice;
+    private final String sumImgUrl;
+
+
 
 }

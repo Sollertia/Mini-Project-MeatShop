@@ -1,16 +1,12 @@
 package com.hanghae.miniprojectmeatshop.controller;
 
 import com.hanghae.miniprojectmeatshop.dto.CommentRequestDto;
-import com.hanghae.miniprojectmeatshop.model.Comment;
 import com.hanghae.miniprojectmeatshop.security.UserDetailsImpl;
 import com.hanghae.miniprojectmeatshop.service.CommentService;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Controller

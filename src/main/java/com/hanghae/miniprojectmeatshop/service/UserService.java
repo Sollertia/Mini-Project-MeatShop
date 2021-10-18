@@ -1,10 +1,13 @@
 package com.hanghae.miniprojectmeatshop.service;
 
 import com.hanghae.miniprojectmeatshop.dto.UserRequestDto;
+import com.hanghae.miniprojectmeatshop.exception.UnauthenticatedException;
 import com.hanghae.miniprojectmeatshop.model.User;
 import com.hanghae.miniprojectmeatshop.repository.UserRepository;
 import com.hanghae.miniprojectmeatshop.security.JwtTokenProvider;
+import com.hanghae.miniprojectmeatshop.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -55,4 +58,12 @@ public class UserService {
         tu.add(token);
         return tu;
     }
+    public User userFromUserDetails(UserDetails userDetails) {
+        if ( userDetails instanceof UserDetailsImpl) {
+            return ((UserDetailsImpl) userDetails).getUser();
+        } else {
+            throw new UnauthenticatedException("로그인이 필요합니다.");
+        }
+    }
+
 }
