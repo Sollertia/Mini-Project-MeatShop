@@ -68,6 +68,7 @@ public class Item {
         this.category = requestDto.getCategory();
         this.defaultprice = requestDto.getDefaultprice();
 
+
     }
 
     public ItemDetailResponseDto ItemDetailResponseDtoToString(UserDetails userDetails) {

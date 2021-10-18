@@ -4,7 +4,6 @@ import com.hanghae.miniprojectmeatshop.defaultResponse.DefaultResponse;
 import com.hanghae.miniprojectmeatshop.defaultResponse.ResponseMessage;
 import com.hanghae.miniprojectmeatshop.defaultResponse.StatusCode;
 import com.hanghae.miniprojectmeatshop.defaultResponse.SuccessYn;
-import com.hanghae.miniprojectmeatshop.dto.ImgResponseDto;
 import com.hanghae.miniprojectmeatshop.dto.ItemCreateRequestDto;
 import com.hanghae.miniprojectmeatshop.dto.ItemDetailResponseDto;
 import com.hanghae.miniprojectmeatshop.dto.ItemUpdateRequestDto;
@@ -54,17 +53,18 @@ public class ItemController {
     //---------------------이미지 받는곳---------------------
     @PostMapping("/image")
     public Path upLoadImg(@RequestPart(value = "image")MultipartFile multipartFile){
-            Path sumImgUrl = imageService.saveFile(multipartFile);
-            return sumImgUrl;
+        Path sumImgUrl = imageService.saveFile(multipartFile);
+
+        return sumImgUrl;
     }
 
-    @PostMapping("/image/update")
-    public ImgResponseDto upDateImg(@RequestPart(value = "image")MultipartFile multipartFile){
-        Path sumImgUrl = imageService.saveFile(multipartFile);
-        Path detailImgUrl = imageService.saveFile(multipartFile);
-        return new ImgResponseDto(sumImgUrl,detailImgUrl);
-    }
-    
+//    @PostMapping("/image/update")
+//    public ImgResponseDto upDateImg(@RequestPart(value = "image")MultipartFile multipartFile){
+//        Path sumImgUrl = imageService.saveFile(multipartFile);
+//        Path detailImgUrl = imageService.saveFile(multipartFile);
+//        return new ImgResponseDto(sumImgUrl,detailImgUrl);
+//    }
+
     //-----------------------------------------------------------
 
     @GetMapping("/item/update/{item_Id}")
