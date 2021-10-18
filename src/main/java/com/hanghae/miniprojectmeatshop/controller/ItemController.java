@@ -50,6 +50,8 @@ public class ItemController {
         return ResponseEntity.ok(DefaultResponse.res(SuccessYn.OK, StatusCode.OK, ResponseMessage.CREATE_ITEM,null));
     }
 
+
+    //---------------------이미지 받는곳---------------------
     @PostMapping("/image")
     public Path upLoadImg(@RequestPart(value = "image")MultipartFile multipartFile){
             Path sumImgUrl = imageService.saveFile(multipartFile);
@@ -62,6 +64,8 @@ public class ItemController {
         Path detailImgUrl = imageService.saveFile(multipartFile);
         return new ImgResponseDto(sumImgUrl,detailImgUrl);
     }
+    
+    //-----------------------------------------------------------
 
     @GetMapping("/item/update/{item_Id}")
     public ResponseEntity<DefaultResponse<Void>> updateItem(@PathVariable("item_Id") Long itemId ,@AuthenticationPrincipal UserDetails userDetails, @ModelAttribute ItemUpdateRequestDto requestDto ) {
