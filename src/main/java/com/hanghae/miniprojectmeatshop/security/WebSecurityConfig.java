@@ -75,50 +75,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
                         UsernamePasswordAuthenticationFilter.class)
                 .cors();
-//                .and()
-//                //// [로그인 기능]
-//                .formLogin()
-//                .failureHandler(userLoginFailHandler)
-//
-//// 로그인 View 제공 (GET /user/login)
-////                .loginPage("/user/login")
-//// 로그인 처리 (POST /user/login)
-//                .loginProcessingUrl("/user/login")
-//// 로그인 처리 후 성공 시 URL
-//                .defaultSuccessUrl("http://52.79.248.107:3000/")
-//// 로그인 처리 후 실패 시 URL
-//                .permitAll()
-//                .successHandler(loginSuccessHandler)
-//                .and()
-//// [로그아웃 기능]
-//                .logout()
-//// 로그아웃 요청 처리 URL
-//                .logoutUrl("/user/logout")
-//                .permitAll()
-//                .and()
-//                .exceptionHandling()
-//// "접근 불가" 페이지 URL 설정
-//                .accessDeniedPage("/forbidden.html");//        http.authorizeRequests()
-//////                .anyRequest().authenticated()
-//////                .and()
-////                .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
-////                .antMatchers("/user/login").permitAll()
-////
-////                .and()
-////                .cors()
-////                .and()
-//////// image 폴더를 login 없이 허용
-//////                .antMatchers("/image/**").permitAll()
-//////// css 폴더를 login 없이 허용
-//////                .antMatchers("/css/**").permitAll()
-//////// 회원 관리 처리 API 전부를 login 없이 허용
-//////                .antMatchers("/user/**").permitAll()
-//////// 그 외 어떤 요청이든 '인증'
-//////                .antMatchers("/write.html").authenticated()
-////////                .antMatchers("/api/comment").authenticated()
-//////                .antMatchers("/api/deletecomment/*").authenticated()
 //////                .antMatchers("/api/editcomment").authenticated()
-//////                .and()
-
     }
 }
