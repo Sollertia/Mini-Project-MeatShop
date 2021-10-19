@@ -6,15 +6,19 @@ import com.hanghae.miniprojectmeatshop.exception.ItemNotFoundException;
 import com.hanghae.miniprojectmeatshop.model.Item;
 import com.hanghae.miniprojectmeatshop.model.User;
 import com.hanghae.miniprojectmeatshop.repository.ItemRepository;
+import com.hanghae.miniprojectmeatshop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class ItemService {
     private final ItemRepository itemRepository;
     private final ImageService imageService;
+    private final UserRepository userRepository; //LSJ 테스트용 지우면 지워주세욤..
 
 
     public void createItem(ItemCreateRequestDto requestDto, User user) {
@@ -48,4 +52,27 @@ public class ItemService {
     }
 
 
+    //Test용 혹시 사용할수도있을거같아서 남겨놔요..
+    @Transactional
+    public void mytest() {
+        User user = userRepository.findByUserName("tmdwns1235").orElse(null);
+        Item item1 = new Item();
+        item1.setCategory("1");
+        item1.setDefaultprice(3000);
+        item1.setTitle("제목1");
+        item1.setUser(user);
+        Item item2 = new Item();
+        item2.setCategory("1");
+        item2.setDefaultprice(3000);
+        item2.setTitle("제목1");
+        item2.setUser(user);
+        Item item3 = new Item();
+        item3.setCategory("1");
+        item3.setDefaultprice(3000);
+        item3.setTitle("제목1");
+        item3.setUser(user);
+        itemRepository.save(item1);
+        itemRepository.save(item2);
+        itemRepository.save(item3);
+    }
 }
