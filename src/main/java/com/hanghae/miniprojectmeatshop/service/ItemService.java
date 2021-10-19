@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ItemService {
     private final ItemRepository itemRepository;
-    private final ImageService imageService;
 
 
     public void createItem(ItemCreateRequestDto requestDto, User user) {

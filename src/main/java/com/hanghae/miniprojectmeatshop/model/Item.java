@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -38,6 +40,9 @@ public class Item {
     @JoinColumn(name = "USER_ID", nullable = false)
     private User user;
 
+    @OneToMany(mappedBy = "item")
+    private List<Basket> baskets = new ArrayList<>();
+
 
     @Column
     private String sumImgUrl;
@@ -50,7 +55,9 @@ public class Item {
         this.title = requestDto.getTitle();
         this.category = requestDto.getCategory();
         this.defaultprice = requestDto.getDefaultprice();
+        this.sumImgUrl = requestDto.getSumImgUrl();
         this.user = user;
+        this.detailImgUrl = requestDto.getDetailImgUrl();
     }
 
 
