@@ -41,9 +41,9 @@ public class ItemController {
         return item.ItemDetailResponseDtoToString(userDetails);
     }
 
-
+//param 으로받을때는 @ModelAttribute, @RequestBody 바디로 받는다
     @PostMapping("/item")
-    public ResponseEntity<DefaultResponse<Void>> createItem(@AuthenticationPrincipal UserDetails userDetails, @ModelAttribute ItemCreateRequestDto requestDto) {
+    public ResponseEntity<DefaultResponse<Void>> createItem(@AuthenticationPrincipal UserDetails userDetails, @RequestBody ItemCreateRequestDto requestDto) {
         User user = userService.userFromUserDetails(userDetails);
         itemService.createItem(requestDto,user);
         return ResponseEntity.ok(DefaultResponse.res(SuccessYn.OK, StatusCode.OK, ResponseMessage.CREATE_ITEM,null));
@@ -68,7 +68,7 @@ public class ItemController {
     //-----------------------------------------------------------
 
     @GetMapping("/item/update/{item_Id}")
-    public ResponseEntity<DefaultResponse<Void>> updateItem(@PathVariable("item_Id") Long itemId ,@AuthenticationPrincipal UserDetails userDetails, @ModelAttribute ItemUpdateRequestDto requestDto ) {
+    public ResponseEntity<DefaultResponse<Void>> updateItem(@PathVariable("item_Id") Long itemId ,@AuthenticationPrincipal UserDetails userDetails, @RequestBody ItemUpdateRequestDto requestDto ) {
         itemService.updateItem(itemId,requestDto,userService.userFromUserDetails(userDetails));
         return ResponseEntity.ok(DefaultResponse.res(SuccessYn.OK, StatusCode.OK,ResponseMessage.UPDATE_ITEM_SUCCESS, null));
     }
