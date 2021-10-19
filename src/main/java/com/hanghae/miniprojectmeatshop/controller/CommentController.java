@@ -21,17 +21,17 @@ public class CommentController {
     private final ItemService itemService;
 
     @PostMapping("/api/addcomment/{itemId}")
-    public void addcomment(
+    public Comment addcomment(
             @RequestBody CommentRequestDto requestDto,
             @PathVariable Long itemId,
             @AuthenticationPrincipal UserDetailsImpl userDetails
     )
     {
         if (userDetails == null) // 에러메세지 주던가해야할듯?
-            return;
+            return null;
         requestDto.setPostId(itemId);
         requestDto.setWriter(userDetails.getUser().getUserName());
-        commentService.addcomment(requestDto);
+        return commentService.addcomment(requestDto);
     }
     //댓글 조회
     //Item내부에 달린 댓글을 불러와야하므로 저 Path에들어가는 id는

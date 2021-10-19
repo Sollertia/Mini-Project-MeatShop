@@ -18,16 +18,13 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final ItemRepository itemRepository;
     @Transactional
-    public void addcomment(CommentRequestDto requestDto) {
+    public Comment addcomment(CommentRequestDto requestDto) {
         Comment com = new Comment(requestDto);
         Item item = itemRepository.findById(requestDto.getPostId()).orElse(null);
         if(item == null)
-            return;
+            return null;
         com.setItem(item);
-        commentRepository.save(com);
-        // Item item = itemreposi.findbyid(com.getitemid)
-        // item.getcomlist.add(com)
-        // 이런구문 차후에 추가해 줘야함.
+        return commentRepository.save(com);
     }
 
     @Transactional
@@ -38,8 +35,8 @@ public class CommentService {
             com.setContent(reqDto.getContent());
             commentRepository.save(com);
         }
-        else // 작성자가 아닌사람이 수정요청한것임.. 여기엘스문은 차후에 요청있으면 추가해주자자 예외구문을추가하던해서
-        {    // 추가해주자
+        else
+        {
            return;
         }
     }
@@ -51,8 +48,8 @@ public class CommentService {
         {
             commentRepository.delete(com);
         }
-        else // 작성자가 아닌사람이 삭제요청한것임.. 여기엘스문은 차후에 요청있으면 추가해주자자 예외구문을추가하던해서
-        {    // 추가해주자
+        else
+        {
             return;
         }
 

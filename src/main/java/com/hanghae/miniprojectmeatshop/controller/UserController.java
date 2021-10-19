@@ -18,7 +18,7 @@ import java.util.Map;
 public class UserController {
     private final UserService userService;
 
-    @PostMapping("/user/signup") // 회원가입.
+    @PostMapping("/user/signup")
     public void registerUser(@RequestBody UserRequestDto requestDto) {
         userService.registerUser(requestDto);
     }
