@@ -41,6 +41,9 @@ public class Item {
     @JoinColumn(name = "USER_ID", nullable = false)
     private User user;
 
+    @OneToMany(mappedBy = "item")
+    private List<Basket> baskets = new ArrayList<>();
+
 
     @Column
     private String sumImgUrl;
@@ -53,7 +56,9 @@ public class Item {
         this.title = requestDto.getTitle();
         this.category = requestDto.getCategory();
         this.defaultprice = requestDto.getDefaultprice();
+        this.sumImgUrl = requestDto.getSumImgUrl();
         this.user = user;
+        this.detailImgUrl = requestDto.getDetailImgUrl();
     }
     public static Item of(ItemCreateRequestDto requestDto, User user){
         return new Item(requestDto, user);

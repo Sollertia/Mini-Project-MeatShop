@@ -1,6 +1,7 @@
 package com.hanghae.miniprojectmeatshop.repository;
 
 import com.hanghae.miniprojectmeatshop.model.Item;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -9,4 +10,7 @@ import java.util.List;
 public interface ItemRepository extends JpaRepository<Item, Long> {
     List<Item> findAllByIdAndAndCategory(Long id, String category);
 
+    List<Item> findByCategory(String category, Pageable pageable);
+
+    List<Item> findByCategory(String category);
 }
