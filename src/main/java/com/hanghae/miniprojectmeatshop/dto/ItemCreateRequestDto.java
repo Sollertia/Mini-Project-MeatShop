@@ -1,17 +1,19 @@
 package com.hanghae.miniprojectmeatshop.dto;
 
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Getter
-@RequiredArgsConstructor
+@Setter
+@AllArgsConstructor
+@Builder
 public class ItemCreateRequestDto {
 
     private final String title;
     private final String category;
     private final int defaultprice;
     private final String sumImgUrl;
+    private String detailImgUrl;
 
 
 
