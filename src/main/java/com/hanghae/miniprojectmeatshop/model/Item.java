@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -21,7 +23,8 @@ import java.text.DecimalFormat;
 public class Item {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ITEM_ID")
     private Long id;
 
     @Column(nullable = false)
@@ -52,12 +55,9 @@ public class Item {
         this.defaultprice = requestDto.getDefaultprice();
         this.user = user;
     }
-
-
     public static Item of(ItemCreateRequestDto requestDto, User user){
         return new Item(requestDto, user);
     }
-
 
     public boolean isWritedBy(User user) {
         return this.user.equals(user);
@@ -67,8 +67,6 @@ public class Item {
         this.title = requestDto.getTitle();
         this.category = requestDto.getCategory();
         this.defaultprice = requestDto.getDefaultprice();
-
-
     }
 
     public ItemDetailResponseDto ItemDetailResponseDtoToString(UserDetails userDetails) {
@@ -96,7 +94,5 @@ public class Item {
                     .detailImgUrl(this.detailImgUrl)
                     .build();
         }
-
     }
-
 }

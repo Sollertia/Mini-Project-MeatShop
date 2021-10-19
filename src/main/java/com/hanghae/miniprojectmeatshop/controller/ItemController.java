@@ -43,7 +43,9 @@ public class ItemController {
 
 
     @PostMapping("/item")
-    public ResponseEntity<DefaultResponse<Void>> createItem(@AuthenticationPrincipal UserDetails userDetails, @ModelAttribute ItemCreateRequestDto requestDto) {
+    public ResponseEntity<DefaultResponse<Void>> createItem(
+            @AuthenticationPrincipal UserDetails userDetails,
+            @RequestBody ItemCreateRequestDto requestDto) {
         User user = userService.userFromUserDetails(userDetails);
         itemService.createItem(requestDto,user);
         return ResponseEntity.ok(DefaultResponse.res(SuccessYn.OK, StatusCode.OK, ResponseMessage.CREATE_ITEM,null));
@@ -54,7 +56,6 @@ public class ItemController {
     @PostMapping("/image")
     public Path upLoadImg(@RequestPart(value = "image")MultipartFile multipartFile){
         Path sumImgUrl = imageService.saveFile(multipartFile);
-
         return sumImgUrl;
     }
 

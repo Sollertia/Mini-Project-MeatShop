@@ -1,5 +1,7 @@
 package com.hanghae.miniprojectmeatshop.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.hanghae.miniprojectmeatshop.dto.CommentRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,25 +11,23 @@ import javax.persistence.*;
 
 @Setter
 @Getter
-@NoArgsConstructor // 기본 생성자를 만들어줍니다.
+@NoArgsConstructor
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "id")
 public class Comment extends Timestamped{
-    // 단방향으로해도 상관없으니까 Item 엔티티가 생기면
-    // 거기다 추가하던가 협의하자..
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Long id;
 
-    @Column(nullable = false,unique = true) // 이게 실질적인 ID
+    @Column(nullable = false,unique = true)
     private String content;
 
     @Column(nullable = false)
     private String writer;
 
-    // Item 엔티티티 Mappin 관계 지정해줘야할듯
-    // 그래서 이부분은 일단 주석
-//    @Column(nullable = false)
-//    private Long ItemId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ITEM_ID")
+    private Item item;
 
     public Comment(CommentRequestDto requestDto) {
         this.content = requestDto.getContent();
