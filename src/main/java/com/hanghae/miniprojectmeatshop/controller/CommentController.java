@@ -63,16 +63,4 @@ public class CommentController {
         commentService.delete(id,userDetails.getUser().getUserName());
     }
 
-    //Test용 혹시 사용할수도있을거같아서 남겨놔요..
-    @PostMapping("/mytest")
-    public void mytest()
-    {
-        itemService.mytest();
-    }
-    //Test용 혹시 사용할수도있을거같아서 남겨놔요..
-    @PostMapping("/mytest2")
-    public void mytest2()
-    {
-        commentService.mytest();
-    }
 }
