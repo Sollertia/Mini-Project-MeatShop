@@ -36,7 +36,7 @@ public class Item {
     @Column(nullable = false)
     private int defaultprice;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch  = FetchType.LAZY)
     @JsonIgnore
     @JoinColumn(name = "USER_ID", nullable = false)
     private User user;
@@ -65,7 +65,7 @@ public class Item {
     }
 
     public boolean isWritedBy(User user) {
-        return this.user.equals(user);
+        return this.user.getId().equals(user.getId());
     }
 
     public void update(ItemUpdateRequestDto requestDto) {

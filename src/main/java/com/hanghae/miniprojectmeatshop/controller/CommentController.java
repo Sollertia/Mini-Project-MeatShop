@@ -25,21 +25,20 @@ public class CommentController {
             @RequestBody CommentRequestDto requestDto,
             @PathVariable Long itemId,
             @AuthenticationPrincipal UserDetailsImpl userDetails
-    )
-    {
+    ) {
         if (userDetails == null) // 에러메세지 주던가해야할듯?
             return null;
         requestDto.setPostId(itemId);
         requestDto.setWriter(userDetails.getUser().getUserName());
         return commentService.addcomment(requestDto);
     }
+
     //댓글 조회
     //Item내부에 달린 댓글을 불러와야하므로 저 Path에들어가는 id는
     //Item의 PK이고, Comment의 PK가 아니다.
     // 이쪽을 Item Entity 생성후 다시작성
     @GetMapping("/api/comment/{postId}")
-    public List<CommentRequestDto> getComment(@PathVariable Long postId)
-    {
+    public List<CommentRequestDto> getComment(@PathVariable Long postId) {
         return commentService.getComment(postId);
     }
 
@@ -50,9 +49,9 @@ public class CommentController {
             @RequestBody CommentRequestDto reqDto,
             @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
-        if(userDetails == null) // 이것도 요청이있으면 추가해주자..
+        if (userDetails == null) // 이것도 요청이있으면 추가해주자..
             return;
-        commentService.update(id, reqDto,userDetails.getUser().getUserName());
+        commentService.update(id, reqDto, userDetails.getUser().getUserName());
     }
     //삭제
     @GetMapping("/api/deletecomment/{id}")
@@ -60,19 +59,6 @@ public class CommentController {
             @PathVariable Long id,
             @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
-        commentService.delete(id,userDetails.getUser().getUserName());
-    }
-
-    //Test용 혹시 사용할수도있을거같아서 남겨놔요..
-    @PostMapping("/mytest")
-    public void mytest()
-    {
-        itemService.mytest();
-    }
-    //Test용 혹시 사용할수도있을거같아서 남겨놔요..
-    @PostMapping("/mytest2")
-    public void mytest2()
-    {
-        commentService.mytest();
+        commentService.delete(id, userDetails.getUser().getUserName());
     }
 }
