@@ -13,6 +13,7 @@ public class CommentRequestDto {
     private String writer;
     private LocalDateTime createdAt;
     private Long postId;
+    private Long id;
 
     public CommentRequestDto(Comment com)
     {
@@ -20,10 +21,11 @@ public class CommentRequestDto {
         this.writer = com.getWriter();
         this.createdAt = com.getCreatedAt();
     }
-    public CommentRequestDto(String content,String writer, LocalDateTime createdAt)
+    public CommentRequestDto(String content,String writer, LocalDateTime createdAt, Long id)
     {
         this.content = content;
         this.writer = writer;
         this.createdAt= createdAt;
+        this.id = id;
     }
 }
