@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-    @Query("SELECT NEW com.hanghae.miniprojectmeatshop.dto.CommentRequestDto(c.content,c.writer,c.createdAt)" +
+    @Query("SELECT NEW com.hanghae.miniprojectmeatshop.dto.CommentRequestDto(c.content,c.writer,c.createdAt,c.id)" +
             " FROM Comment as c" +
             " WHERE c.item.id = :itemId")
     List<CommentRequestDto> findByItemId(@Param("itemId") Long itemId);
