@@ -43,11 +43,4 @@ public class Basket {
         this.amount += amount;
     }
 
-    // option이 같다면 같은 상품이기 때문에 현재수량에서 추가된 수량을 더해준다.
-    public boolean checkAmountUp(User user, Item item, String option) {
-        if(this.user.getId().equals(user.getId()) && this.item.getId().equals(item.getId()) && this.option.equals(option)){
-            return true; // 중복일 경우 true 반환 - 이후 amount 증가 해야함.
-        }
-        return false; // 중복이 아닐 경우 false 반환
-    }
 }

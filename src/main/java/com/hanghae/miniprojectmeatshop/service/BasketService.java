@@ -33,33 +33,30 @@ public class BasketService {
     // 장바구니 등록
     public List<BasketResponseDto> basketInsert(BasketRequestDto basketRequestDto,
                                                 UserDetailsImpl userDetails) {
-        // Item 과 User 유효성 검사
-        Item item = itemRepository.findById(basketRequestDto.getItemId()).orElseThrow(
-                () -> new NullPointerException("해당 상품은 존재하지 않습니다.")
-        );
 
         User user = userRepository.findByUserName(userDetails.getUsername()).orElseThrow(
                 () -> new NullPointerException("현재 로그인이 되어 있지 않습니다.")
+        );
+
+        // Item 과 User 유효성 검사
+        Item item = itemRepository.findById(basketRequestDto.getItemId()).orElseThrow(
+                () -> new NullPointerException("해당 상품은 존재하지 않습니다.")
         );
 
 
         List<BasketResponseDto> list = new ArrayList<>(); // 클라이언트에 보내줄 DTO 생성
 
 
-        Basket basket = basketRepository.findByUserAndItem(user, item); // 중복된 장바구니 확인 용
+        Basket basket = basketRepository.findByUserAndItemAndOption(user, item,basketRequestDto.getOption()); // 중복된 장바구니 확인 용
         if(basket != null) { // 이미 장바구니에 동일한 user, item 이 있으면서 option까지 전부 동일한 basket 찾아서 수량만 증가시키기
-
-            if(basket.checkAmountUp(user, item, basketRequestDto.getOption())){
                 basket.basketAmountUp(basketRequestDto.getAmount());
                 basketRepository.save(basket); // persist 등 공부해서 고민해보기
-
                 List<Basket> baskets = basketRepository.findAllByUser(user);
                 for (Basket b : baskets) {
                     list.add(BasketResponseDto.builder().basketId(b.getId()).itemId(b.getItem().getId()).
                             amount(b.getAmount()).option(b.getOption()).defaultprice(b.getItem().getDefaultprice()).sumImgUrl(b.getItem().getSumImgUrl()).build());
                 }
                 return list;
-            }
         }
 
         // 처음 장바구니에 저장하거나 장바구니의 상품은 같지만 option 이 다를 경우 새롭게 저장
