@@ -41,7 +41,8 @@ public class Item {
     @JoinColumn(name = "USER_ID", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "item")
+    @OneToMany(mappedBy = "item",fetch  = FetchType.LAZY)
+    @JsonIgnore
     private List<Basket> baskets = new ArrayList<>();
 
 

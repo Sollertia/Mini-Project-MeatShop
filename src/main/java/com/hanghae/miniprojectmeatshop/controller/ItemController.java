@@ -66,7 +66,7 @@ public class ItemController {
         return sumImgUrl;
     }
 
-    @GetMapping("/item/update/{item_Id}")
+    @PutMapping("/item/update/{item_Id}")
     public ResponseEntity<DefaultResponse<Void>> updateItem(@PathVariable("item_Id") Long itemId ,@AuthenticationPrincipal UserDetails userDetails, @RequestBody ItemUpdateRequestDto requestDto ) {
         itemService.updateItem(itemId,requestDto,userService.userFromUserDetails(userDetails));
         return ResponseEntity.ok(DefaultResponse.res(SuccessYn.OK, StatusCode.OK,ResponseMessage.UPDATE_ITEM_SUCCESS, null));
