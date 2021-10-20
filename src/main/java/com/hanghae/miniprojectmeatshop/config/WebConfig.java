@@ -1,10 +1,25 @@
 package com.hanghae.miniprojectmeatshop.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 public class WebConfig implements WebMvcConfigurer {
+
+    @Value("${image.upload.directory}")
+    private String uploadDir;
+
+    @Value("${image.upload.url}")
+    private String uploadUrl;
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler(uploadUrl+"*")
+                .addResourceLocations("file:"+uploadDir);
+    }
+
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
