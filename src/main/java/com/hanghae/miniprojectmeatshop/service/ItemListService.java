@@ -60,6 +60,15 @@ public class ItemListService {
 
     }
 
+    // 상품 전체를 반환
+    public List<ItemListResponseDto> mainListAll() {
 
-
+        List<ItemListResponseDto> list = new ArrayList<>();
+        List<Item> items = itemRepository.findAll();
+        for(Item i : items){
+            list.add(ItemListResponseDto.builder().itemId(i.getId()).title(i.getTitle()).category(i.getCategory()).
+                    sumImgUrl(i.getSumImgUrl()).defaultprice(i.getDefaultprice()).build());
+        }
+        return list;
+    }
 }
