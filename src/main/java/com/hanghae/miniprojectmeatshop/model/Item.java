@@ -66,6 +66,7 @@ public class Item {
 
     public boolean isWritedBy(User user) {
         return this.user.getId().equals(user.getId());
+
     }
 
     public void update(ItemUpdateRequestDto requestDto) {

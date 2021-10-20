@@ -34,11 +34,15 @@ public class Basket {
            this.amount = amount;
            this.option = option;
     }
-
-    // 장바구니 중복확인 후 amount 더해주기
-    public void basketAmountUp(int amount){
+    // 직접 계산
+    private void cal(int amount){
         this.amount += amount;
     }
+    // 장바구니 중복확인 후 amount 더해주기
+    public void basketAmountUp(int amount){
+        cal(amount);
+    }
+
 
     // option이 같다면 같은 상품이기 때문에 현재수량에서 추가된 수량을 더해준다.
     public boolean checkAmountUp(User user, Item item, String option) {
