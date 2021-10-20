@@ -23,7 +23,6 @@ public class ImageService {
     private String uploadUrl;
 
     public Path saveFile(MultipartFile multipartFile) {
-        System.out.println("들옴");
         String extension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
         String fileName =
                 UUID.randomUUID().toString().substring(19) +
