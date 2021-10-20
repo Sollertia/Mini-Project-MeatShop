@@ -22,7 +22,8 @@ public class ImageService {
     @Value("${image.upload.url}")
     private String uploadUrl;
 
-    public Path saveFile(MultipartFile multipartFile) {
+
+    public String saveFile(MultipartFile multipartFile) {
         String extension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
         String fileName =
                 UUID.randomUUID().toString().substring(19) +
@@ -38,7 +39,6 @@ public class ImageService {
             e.printStackTrace();
             throw new FileStorageException("파일을 저장할 수 없습니다. : " + fileName);
         }
-
-        return Paths.get(uploadUrl + StringUtils.cleanPath(fileName));
+        return "http://52.79.248.107:8080/display/" + fileName;
     }
 }
