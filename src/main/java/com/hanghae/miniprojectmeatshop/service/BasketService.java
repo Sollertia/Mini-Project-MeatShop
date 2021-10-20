@@ -56,7 +56,7 @@ public class BasketService {
                 List<Basket> baskets = basketRepository.findAllByUser(user);
                 for (Basket b : baskets) {
                     list.add(BasketResponseDto.builder().basketId(b.getId()).itemId(b.getItem().getId()).
-                            amount(b.getAmount()).option(b.getOption()).sumImgUrl(b.getItem().getSumImgUrl()).build());
+                            amount(b.getAmount()).option(b.getOption()).defaultprice(b.getItem().getDefaultprice()).sumImgUrl(b.getItem().getSumImgUrl()).build());
                 }
                 return list;
             }
@@ -69,7 +69,7 @@ public class BasketService {
         List<Basket> baskets = basketRepository.findAllByUser(user);
         for (Basket b : baskets) {
             list.add(BasketResponseDto.builder().basketId(b.getId()).itemId(b.getItem().getId()).
-                    amount(b.getAmount()).option(b.getOption()).sumImgUrl(b.getItem().getSumImgUrl()).build());
+                    amount(b.getAmount()).option(b.getOption()).sumImgUrl(b.getItem().getSumImgUrl()).defaultprice(b.getItem().getDefaultprice()).build());
         }
         return list;
     }
@@ -88,7 +88,7 @@ public class BasketService {
         List<Basket> baskets = basketRepository.findAllByUser(user);
         for (Basket b : baskets) {
             list.add(BasketResponseDto.builder().basketId(b.getId()).itemId(b.getItem().getId()).amount(b.getAmount())
-                    .option(b.getOption()).sumImgUrl(b.getItem().getSumImgUrl()).build());
+                    .option(b.getOption()).sumImgUrl(b.getItem().getSumImgUrl()).defaultprice(b.getItem().getDefaultprice()).build());
         }
         return list;
     }

@@ -13,6 +13,7 @@ public class BasketResponseDto {
     private Long basketId;
     private Long itemId;
     private int amount;
+    private int defaultprice;
     private String option;
     private String sumImgUrl;
 }
