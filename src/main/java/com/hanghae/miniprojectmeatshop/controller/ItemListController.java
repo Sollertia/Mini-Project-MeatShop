@@ -28,4 +28,9 @@ public class ItemListController {
         return itemListService.categoryList(category);
     }
 
+    @GetMapping("/item/all")
+    public List<ItemListResponseDto> mainListAll(){
+        return itemListService.mainListAll();
+    }
+
 }
