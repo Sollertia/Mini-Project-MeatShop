@@ -41,11 +41,8 @@ public class ItemService {
     public void deleteItem(Long itemId, User user) {
         Item item = getItemById(itemId);
         if (item.isWritedBy(user)) {
-            System.out.println(" 진입");
             itemRepository.delete(item);
-            System.out.println("끝");
         } else {
-            System.out.println("에러");
             throw new AccessDeniedException("권한이 없습니다");
         }
     }
