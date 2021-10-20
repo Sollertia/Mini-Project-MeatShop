@@ -59,6 +59,7 @@ public class CommentController {
             @PathVariable Long id,
             @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
-        commentService.delete(id, userDetails.getUser().getUserName());
+        commentService.delete(id,userDetails.getUser().getUserName());
     }
+
 }

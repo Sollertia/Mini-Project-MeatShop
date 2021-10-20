@@ -13,13 +13,20 @@ import com.hanghae.miniprojectmeatshop.service.ImageService;
 import com.hanghae.miniprojectmeatshop.service.ItemService;
 import com.hanghae.miniprojectmeatshop.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @RestController
 @RequiredArgsConstructor
@@ -54,19 +61,10 @@ public class ItemController {
 
     //---------------------이미지 받는곳---------------------
     @PostMapping("/image")
-    public Path upLoadImg(@RequestPart(value = "image")MultipartFile multipartFile){
-        Path sumImgUrl = imageService.saveFile(multipartFile);
+    public String upLoadImg(@RequestPart(value = "image")MultipartFile multipartFile){
+        String sumImgUrl = imageService.saveFile(multipartFile);
         return sumImgUrl;
     }
-
-//    @PostMapping("/image/update")
-//    public ImgResponseDto upDateImg(@RequestPart(value = "image")MultipartFile multipartFile){
-//        Path sumImgUrl = imageService.saveFile(multipartFile);
-//        Path detailImgUrl = imageService.saveFile(multipartFile);
-//        return new ImgResponseDto(sumImgUrl,detailImgUrl);
-//    }
-
-    //-----------------------------------------------------------
 
     @GetMapping("/item/update/{item_Id}")
     public ResponseEntity<DefaultResponse<Void>> updateItem(@PathVariable("item_Id") Long itemId ,@AuthenticationPrincipal UserDetails userDetails, @RequestBody ItemUpdateRequestDto requestDto ) {
@@ -78,6 +76,27 @@ public class ItemController {
     public ResponseEntity<DefaultResponse<Void>> deleteItem(@AuthenticationPrincipal UserDetails userDetails, @PathVariable("item_Id") Long itemId) {
         itemService.deleteItem(itemId,userService.userFromUserDetails(userDetails));
         return ResponseEntity.ok(DefaultResponse.res(SuccessYn.OK, StatusCode.OK, ResponseMessage.DELETE_ITEM_SUCCESS, null));
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/display/{file}")
+    public ResponseEntity<org.springframework.core.io.Resource> display(
+            @PathVariable String file
+    ) {
+        String path = "/home/ubuntu/images/"+file; // 이경로는 우분투랑 윈도우랑 다르니까 주의해야댐 우분투 : / 윈도우 \\ 인것같음.
+        String folder = "";
+        org.springframework.core.io.Resource resource = new FileSystemResource(path);
+        if (!resource.exists())
+            return new ResponseEntity<org.springframework.core.io.Resource>(HttpStatus.NOT_FOUND);
+        HttpHeaders header = new HttpHeaders();
+        Path filePath = null;
+        try {
+            filePath = Paths.get(path);
+            header.add("Content-Type", Files.probeContentType(filePath));
+        } catch (IOException e) {
+            return null;
+        }
+        return new ResponseEntity<Resource>(resource, header, HttpStatus.OK);
     }
 
 }
