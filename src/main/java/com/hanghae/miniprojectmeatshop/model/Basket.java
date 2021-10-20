@@ -1,5 +1,7 @@
 package com.hanghae.miniprojectmeatshop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
@@ -21,6 +23,7 @@ public class Basket {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Item_id")
+    @JsonIgnore
     private Item item;
 
     @ManyToOne(fetch = FetchType.LAZY)

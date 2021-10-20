@@ -19,7 +19,7 @@ public class Comment extends Timestamped{
     @Id
     private Long id;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false)
     private String content;
 
     @Column(nullable = false)
