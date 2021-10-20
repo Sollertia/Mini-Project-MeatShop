@@ -1,11 +1,13 @@
 package com.hanghae.miniprojectmeatshop.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+@Configuration
 public class WebConfig implements WebMvcConfigurer {
 
     @Value("${image.upload.directory}")
@@ -26,7 +28,7 @@ public class WebConfig implements WebMvcConfigurer {
         // url 및 method 접근 풀기
         registry.addMapping("/**")
                 //.allowedOrigins("S3 호스팅 주소") // 배포 전
-                .allowedOrigins("http://localhost:3000") // react 서버 허용
+                .allowedOrigins("*") // react 서버 허용
                 .allowedMethods(
                         HttpMethod.GET.name(),
                         HttpMethod.POST.name(),
